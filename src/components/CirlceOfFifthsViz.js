@@ -46,8 +46,6 @@ const CIRCLE_NOTES_DATA = Object.values(CIRCLE_NOTES_DATA_BY_NOTE).map((d) => {
   }
 })
 
-const CIRCLE_OF_FOURTHS_TRANSITION_DURATION = 1000
-
 const SVGContainer = styled.svg`
   background-color: lavenderblush;
 `
@@ -62,7 +60,7 @@ const CoFLetters = ({ bassNote }) => {
   return (
     <g>
       {CIRCLE_NOTES_DATA.map(({ x, y, note }) => (
-        <g transform={`translate(${x},${y})`}>
+        <g key={note} transform={`translate(${x},${y})`}>
           <CoFNoteText selected={bassNote === note}>{note}</CoFNoteText>
         </g>
       ))}
@@ -75,6 +73,7 @@ const CircleOfFifthsViz = ({ inputState, updateInputState }) => {
     <div>
       {CIRCLE_NOTES_DATA.map(({ note }) => (
         <button
+          key={note}
           onClick={() =>
             updateInputState((draft) => {
               draft.bassNote = note
