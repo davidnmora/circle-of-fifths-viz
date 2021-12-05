@@ -1,23 +1,17 @@
-import logo from './logo.svg';
-import './App.css';
-
-function App() {
+import { useState } from "react";
+import CircleOfFifthsViz from "./components/CirlceOfFifthsViz";
+const DEFAULT_INPUT_STATE = {
+  bassNote: 'C',
+  trebbleNotes: [],
+}
+const App = () => {
+  const [inputState, setInputState] = useState()
   return (
-    <div className="App">
+    <div>
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <h1>Circle of Fifths Viz</h1>
       </header>
+      <CircleOfFifthsViz inputState={inputState} setInputState={setInputState}/>
     </div>
   );
 }
