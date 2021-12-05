@@ -54,12 +54,16 @@ const SVGContainer = styled.svg`
 
 // COMPONENTS
 
-const CoFLetters = () => {
+const CoFNoteText = styled.text`
+  fill: ${({ selected }) => (selected ? 'blue' : 'red')};
+`
+
+const CoFLetters = ({ bassNote }) => {
   return (
     <g>
       {CIRCLE_NOTES_DATA.map(({ x, y, note }) => (
         <g transform={`translate(${x},${y})`}>
-          <text>{note}</text>
+          <CoFNoteText selected={bassNote === note}>{note}</CoFNoteText>
         </g>
       ))}
     </g>
@@ -68,9 +72,13 @@ const CoFLetters = () => {
 
 const CircleOfFifthsViz = ({ inputState, setInputState }) => {
   return (
-    <SVGContainer height={CANVAS_HEIGHT} width={CANVAS_WIDTH}>
-      <CoFLetters />
-    </SVGContainer>
+    <div>
+      <button>Make bass note "C"</button>
+      <button>Make bass note "G"</button>
+      <SVGContainer height={CANVAS_HEIGHT} width={CANVAS_WIDTH}>
+        <CoFLetters bassNote={inputState.bassNote} />
+      </SVGContainer>
+    </div>
   )
 }
 
