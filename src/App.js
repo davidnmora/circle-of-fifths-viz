@@ -1,11 +1,12 @@
 import { useState } from 'react'
 import CircleOfFifthsViz from './components/CirlceOfFifthsViz'
+import { useImmer } from 'use-immer'
 const DEFAULT_INPUT_STATE = {
   bassNote: 'C',
   trebbleNotes: [],
 }
 const App = () => {
-  const [inputState, setInputState] = useState(DEFAULT_INPUT_STATE)
+  const [inputState, updateInputState] = useImmer(DEFAULT_INPUT_STATE)
 
   return (
     <div>
@@ -14,7 +15,7 @@ const App = () => {
       </header>
       <CircleOfFifthsViz
         inputState={inputState}
-        setInputState={setInputState}
+        updateInputState={updateInputState}
       />
     </div>
   )

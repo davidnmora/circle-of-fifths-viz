@@ -70,11 +70,20 @@ const CoFLetters = ({ bassNote }) => {
   )
 }
 
-const CircleOfFifthsViz = ({ inputState, setInputState }) => {
+const CircleOfFifthsViz = ({ inputState, updateInputState }) => {
   return (
     <div>
-      <button>Make bass note "C"</button>
-      <button>Make bass note "G"</button>
+      {CIRCLE_NOTES_DATA.map(({ note }) => (
+        <button
+          onClick={() =>
+            updateInputState((draft) => {
+              draft.bassNote = note
+            })
+          }
+        >
+          {`Make note ${note}`}
+        </button>
+      ))}
       <SVGContainer height={CANVAS_HEIGHT} width={CANVAS_WIDTH}>
         <CoFLetters bassNote={inputState.bassNote} />
       </SVGContainer>
