@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import { pointRadial } from 'd3-shape'
+import { arc as d3arc } from 'd3-shape'
 
 // Constants
 const CIRCLE_NOTES_DATA_BY_NOTE = {
@@ -46,11 +47,33 @@ const CIRCLE_NOTES_DATA = Object.values(CIRCLE_NOTES_DATA_BY_NOTE).map((d) => {
   }
 })
 
+const getKeyCenterArcAngles = (bassNote) => {
+  const startAngle = 0
+  const endAngle = Math.PI / 2
+  return { startAngle, endAngle }
+}
+
 const SVGContainer = styled.svg`
   background-color: lavenderblush;
 `
 
 // COMPONENTS
+const arcGenerator = d3arc()
+const KeyCenterArc = ({ bassNote }) => {
+  const { startAngle, endAngle } = getKeyCenterArcAngles(bassNote)
+  const arcD = arcGenerator({
+    innerRadius: 0,
+    outerRadius: 200,
+    startAngle,
+    endAngle,
+  })
+  return (
+    <path
+      transform={`translate(${CANVAS_WIDTH / 2}, ${CANVAS_HEIGHT / 2})`}
+      d={arcD}
+    ></path>
+  )
+}
 
 const CoFNoteText = styled.text`
   fill: ${({ selected }) => (selected ? 'blue' : 'red')};
@@ -73,6 +96,7 @@ const CircleOfFifthsViz = ({ inputState, updateInputState }) => {
     <div>
       <SVGContainer height={CANVAS_HEIGHT} width={CANVAS_WIDTH}>
         <CoFLetters bassNote={inputState.bassNote} />
+        <KeyCenterArc bassNote={inputState.bassNote} />
       </SVGContainer>
     </div>
   )
