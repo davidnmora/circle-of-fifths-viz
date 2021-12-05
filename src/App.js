@@ -5,11 +5,15 @@ const DEFAULT_INPUT_STATE = {
   bassNote: 'C',
   trebbleNotes: [],
 }
-const handleMIDIMessage = (msg = []) => {
-  console.log(msg)
-}
+
 const App = () => {
   const [inputState, updateInputState] = useImmer(DEFAULT_INPUT_STATE)
+  const handleMIDIMessage = ({ note, octave }) => {
+    console.log(note, octave)
+    updateInputState((draft) => {
+      draft.bassNote = note
+    })
+  }
   useMIDIInput(handleMIDIMessage)
   return (
     <div>

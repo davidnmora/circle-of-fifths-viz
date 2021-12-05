@@ -9,11 +9,11 @@ const CIRCLE_NOTES_DATA_BY_NOTE = {
   A: { note: 'A', fifthsIndex: 3, chromaticIndex: 9 },
   E: { note: 'E', fifthsIndex: 4, chromaticIndex: 4 },
   B: { note: 'B', fifthsIndex: 5, chromaticIndex: 11 },
-  Fsharp: { note: 'Fsharp', fifthsIndex: 6, chromaticIndex: 6 },
-  Csharp: { note: 'Csharp', fifthsIndex: 7, chromaticIndex: 1 },
-  Gsharp: { note: 'Gsharp', fifthsIndex: 8, chromaticIndex: 8 },
-  Eflat: { note: 'Eflat', fifthsIndex: 9, chromaticIndex: 3 },
-  Bflat: { note: 'Bflat', fifthsIndex: 10, chromaticIndex: 10 },
+  'F#': { note: 'F#', fifthsIndex: 6, chromaticIndex: 6 },
+  'C#': { note: 'C#', fifthsIndex: 7, chromaticIndex: 1 },
+  Ab: { note: 'Ab', fifthsIndex: 8, chromaticIndex: 8 },
+  Eb: { note: 'Eb', fifthsIndex: 9, chromaticIndex: 3 },
+  Bb: { note: 'Bb', fifthsIndex: 10, chromaticIndex: 10 },
   F: { note: 'F', fifthsIndex: 11, chromaticIndex: 5 },
 }
 
@@ -71,18 +71,6 @@ const CoFLetters = ({ bassNote }) => {
 const CircleOfFifthsViz = ({ inputState, updateInputState }) => {
   return (
     <div>
-      {CIRCLE_NOTES_DATA.map(({ note }) => (
-        <button
-          key={note}
-          onClick={() =>
-            updateInputState((draft) => {
-              draft.bassNote = note
-            })
-          }
-        >
-          {`Make note ${note}`}
-        </button>
-      ))}
       <SVGContainer height={CANVAS_HEIGHT} width={CANVAS_WIDTH}>
         <CoFLetters bassNote={inputState.bassNote} />
       </SVGContainer>

@@ -14,12 +14,14 @@ const getNoteFromMidiNumber = (midiNote) => {
     'F',
     'F#',
     'G',
-    'G#',
-    'A',
     'Ab',
+    'A',
+    'Bb',
     'B',
   ]
-  return note_names[midiNote % 12] + Math.floor(midiNote / 12 - 1)
+  const note = note_names[midiNote % 12]
+  const octave = Math.floor(midiNote / 12 - 1)
+  return { note, octave }
 }
 
 const preProcessMIDIMessage = (msg, handleMIDIMessage) => {
