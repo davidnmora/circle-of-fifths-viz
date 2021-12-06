@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import { pointRadial } from 'd3-shape'
 import { arc as d3arc } from 'd3-shape'
+import { useBassNote } from '../InputStateContext'
 
 // Constants
 const CIRCLE_NOTES_DATA_BY_NOTE = {
@@ -37,15 +38,17 @@ const _getCoordsFromIndex = (index, jitter = false) => {
   const _jitter = jitter ? Math.random() * 16 : 0
   return [x + CANVAS_WIDTH / 2 + _jitter, y + CANVAS_HEIGHT / 2 + _jitter]
 }
-const CIRCLE_NOTES_DATA = Object.values(CIRCLE_NOTES_DATA_BY_NOTE).map((d) => {
-  const [x, y] = _getCoordsFromIndex(d[INDEX_TYPE])
-  return {
-    ...d,
-    x,
-    y,
-    color: COLORS.text,
-  }
-})
+export const CIRCLE_NOTES_DATA = Object.values(CIRCLE_NOTES_DATA_BY_NOTE).map(
+  (d) => {
+    const [x, y] = _getCoordsFromIndex(d[INDEX_TYPE])
+    return {
+      ...d,
+      x,
+      y,
+      color: COLORS.text,
+    }
+  },
+)
 
 const getKeyCenterArcAngles = (bassNote) => {
   const startAngle = 0
@@ -91,12 +94,13 @@ const CoFLetters = ({ bassNote }) => {
   )
 }
 
-const CircleOfFifthsViz = ({ inputState, updateInputState }) => {
+const CircleOfFifthsViz = () => {
+  const bassNote = useBassNote()
   return (
     <div>
       <SVGContainer height={CANVAS_HEIGHT} width={CANVAS_WIDTH}>
-        <CoFLetters bassNote={inputState.bassNote} />
-        <KeyCenterArc bassNote={inputState.bassNote} />
+        <CoFLetters bassNote={bassNote} />
+        <KeyCenterArc bassNote={bassNote} />
       </SVGContainer>
     </div>
   )
