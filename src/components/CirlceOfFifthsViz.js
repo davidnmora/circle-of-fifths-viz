@@ -1,10 +1,10 @@
 import styled from 'styled-components'
-import { pointRadial } from 'd3-shape'
 import { arc as d3arc } from 'd3-shape'
 import { useBassNote } from '../InputStateContext'
+import { getCoordsFromIndex, useKeyCenterArcAngles } from '../use-derived-state'
 
 // Constants
-const CIRCLE_NOTES_DATA_BY_NOTE = {
+export const CIRCLE_NOTES_DATA_BY_NOTE = {
   C: { note: 'C', fifthsIndex: 0, chromaticIndex: 0 },
   G: { note: 'G', fifthsIndex: 1, chromaticIndex: 7 },
   D: { note: 'D', fifthsIndex: 2, chromaticIndex: 2 },
@@ -20,7 +20,7 @@ const CIRCLE_NOTES_DATA_BY_NOTE = {
 }
 
 // const COLOR_SCALE = d3.scaleLinear().domain([0, CIRCLE_NOTES_DATA.length]).range(['blue', 'red'])
-const CANVAS_HEIGHT = 500,
+export const CANVAS_HEIGHT = 500,
   CANVAS_WIDTH = 500
 const COLORS = {
   text: '#bdc3c7',
@@ -29,18 +29,9 @@ const COLORS = {
 }
 const INDEX_TYPE = 'fifthsIndex'
 
-const _getCoordsFromIndex = (index, jitter = false) => {
-  const increment =
-    (2 * Math.PI) / Object.values(CIRCLE_NOTES_DATA_BY_NOTE).length
-  const angle = increment * index
-  const radius = 200
-  const [x, y] = pointRadial(angle, radius)
-  const _jitter = jitter ? Math.random() * 16 : 0
-  return [x + CANVAS_WIDTH / 2 + _jitter, y + CANVAS_HEIGHT / 2 + _jitter]
-}
 export const CIRCLE_NOTES_DATA = Object.values(CIRCLE_NOTES_DATA_BY_NOTE).map(
   (d) => {
-    const [x, y] = _getCoordsFromIndex(d[INDEX_TYPE])
+    const [x, y] = getCoordsFromIndex(d[INDEX_TYPE])
     return {
       ...d,
       x,
@@ -50,20 +41,15 @@ export const CIRCLE_NOTES_DATA = Object.values(CIRCLE_NOTES_DATA_BY_NOTE).map(
   },
 )
 
-const getKeyCenterArcAngles = (bassNote) => {
-  const startAngle = 0
-  const endAngle = Math.PI / 2
-  return { startAngle, endAngle }
-}
-
 const SVGContainer = styled.svg`
   background-color: lavenderblush;
 `
 
 // COMPONENTS
+// TODO: make its own file
 const arcGenerator = d3arc()
 const KeyCenterArc = ({ bassNote }) => {
-  const { startAngle, endAngle } = getKeyCenterArcAngles(bassNote)
+  const { startAngle, endAngle } = useKeyCenterArcAngles(bassNote)
   const arcD = arcGenerator({
     innerRadius: 0,
     outerRadius: 200,
