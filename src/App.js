@@ -1,10 +1,10 @@
 import CircleOfFifthsViz from './components/CirlceOfFifthsViz'
 import DevControls from './components/DevControls'
-import InputStateContexztProvider from './InputStateContext'
+import InputStateContextProvider from './InputStateContext'
 
 const App = () => {
   return (
-    <InputStateContexztProvider>
+    <InputStateContextProvider>
       <div>
         <header>
           <h1>Circle of Fifths Viz</h1>
@@ -12,7 +12,7 @@ const App = () => {
         <DevControls />
         <CircleOfFifthsViz />
       </div>
-    </InputStateContexztProvider>
+    </InputStateContextProvider>
   )
 }
 

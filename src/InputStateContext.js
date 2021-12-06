@@ -21,7 +21,7 @@ export const useUpdateInputState = () => {
   return updateInputState
 }
 
-const InputStateContexztProvider = ({ children }) => {
+const InputStateContextProvider = ({ children }) => {
   const [inputState, updateInputState] = useImmer(DEFAULT_INPUT_STATE)
   const handleMIDIMessage = ({ note, octave }) => {
     console.log(note, octave)
@@ -38,4 +38,4 @@ const InputStateContexztProvider = ({ children }) => {
   )
 }
 
-export default InputStateContexztProvider
+export default InputStateContextProvider
