@@ -27,11 +27,10 @@ const COLORS = {
   line: '#2ecc71',
   canvas: '#2c3e50',
 }
-const INDEX_TYPE = 'fifthsIndex'
 
 export const CIRCLE_NOTES_DATA = Object.values(CIRCLE_NOTES_DATA_BY_NOTE).map(
   (d) => {
-    const [x, y] = getCoordsFromIndex(d[INDEX_TYPE])
+    const [x, y] = getCoordsFromIndex(d.fifthsIndex)
     return {
       ...d,
       x,
@@ -48,11 +47,16 @@ const SVGContainer = styled.svg`
 // COMPONENTS
 // TODO: make its own file
 const arcGenerator = d3arc()
-const KeyCenterArc = ({ bassNote }) => {
-  const { startAngle, endAngle } = useKeyCenterArcAngles(bassNote)
+const KeyCenterArc = () => {
+  const { startAngle, endAngle } = useKeyCenterArcAngles()
+  const noKeysMatch = [startAngle, endAngle].includes(undefined)
+
+  if (noKeysMatch) {
+    return null
+  }
   const arcD = arcGenerator({
-    innerRadius: 0,
-    outerRadius: 200,
+    innerRadius: 170,
+    outerRadius: 180,
     startAngle,
     endAngle,
   })
@@ -86,7 +90,7 @@ const CircleOfFifthsViz = () => {
     <div>
       <SVGContainer height={CANVAS_HEIGHT} width={CANVAS_WIDTH}>
         <CoFLetters bassNote={bassNote} />
-        <KeyCenterArc bassNote={bassNote} />
+        <KeyCenterArc />
       </SVGContainer>
     </div>
   )
