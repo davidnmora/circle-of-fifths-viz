@@ -21,7 +21,7 @@ const SCALE_NOTES_BY_KEY = {
   F: ['D', 'E', 'F', 'G', 'A', 'Bb', 'C'],
 }
 
-const A_FULL_KEY_ANGLE = (2 * Math.PI) / 12
+export const A_FULL_KEY_ANGLE = (2 * Math.PI) / 12
 const getAngleFromIndex = (index) => {
   return A_FULL_KEY_ANGLE * index
 }

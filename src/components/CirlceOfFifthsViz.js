@@ -2,6 +2,7 @@ import styled from 'styled-components'
 import { arc as d3arc } from 'd3-shape'
 import { useBassNote, useUpdateInputState } from '../InputStateContext'
 import { getCoordsFromIndex, useKeyCenterArcAngles } from '../use-derived-state'
+import NoteArcs from './NoteArcs'
 
 // Constants
 export const CIRCLE_NOTES_DATA_BY_NOTE = {
@@ -101,6 +102,7 @@ const CircleOfFifthsViz = () => {
     <div>
       <SVGContainer height={CANVAS_HEIGHT} width={CANVAS_WIDTH}>
         <CoFLetters bassNote={bassNote} />
+        <NoteArcs />
         <KeyCenterArc />
       </SVGContainer>
     </div>
