@@ -60,7 +60,6 @@ const getVisualOrderedAngles = (angles) => {
       precedent !== undefined &&
       Math.round(100 * (angle - precedent)) > Math.round(100 * A_FULL_KEY_ANGLE)
     ) {
-      debugger
       biggerThanIncrementGapFound = true
     }
     return biggerThanIncrementGapFound ? angle - 2 * Math.PI : angle
