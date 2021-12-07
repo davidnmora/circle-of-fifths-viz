@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import { arc as d3arc } from 'd3-shape'
-import { useBassNote } from '../InputStateContext'
+import { useBassNote, useUpdateInputState } from '../InputStateContext'
 import { getCoordsFromIndex, useKeyCenterArcAngles } from '../use-derived-state'
 
 // Constants
@@ -70,14 +70,25 @@ const KeyCenterArc = () => {
 
 const CoFNoteText = styled.text`
   fill: ${({ selected }) => (selected ? 'blue' : 'red')};
+  cursor: pointer;
 `
 
 const CoFLetters = ({ bassNote }) => {
+  const updateInputState = useUpdateInputState()
   return (
     <g>
       {CIRCLE_NOTES_DATA.map(({ x, y, note }) => (
         <g key={note} transform={`translate(${x},${y})`}>
-          <CoFNoteText selected={bassNote === note}>{note}</CoFNoteText>
+          <CoFNoteText
+            onClick={() =>
+              updateInputState((draft) => {
+                draft.bassNote = note
+              })
+            }
+            selected={bassNote === note}
+          >
+            {note}
+          </CoFNoteText>
         </g>
       ))}
     </g>

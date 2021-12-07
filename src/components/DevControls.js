@@ -1,20 +1,26 @@
 import { useUpdateInputState } from '../InputStateContext'
-import { CIRCLE_NOTES_DATA } from './CirlceOfFifthsViz'
 
+const SAMPLE_TREBLE_NOTES = [
+  ['C', 'E', 'F'],
+  ['G', 'B', 'D'],
+  ['A', 'B', 'C'],
+  ['Bb'],
+  ['E', 'B'],
+]
 const DevControls = () => {
   const updateInputState = useUpdateInputState()
   return (
     <div>
-      {CIRCLE_NOTES_DATA.map(({ note }) => (
+      {SAMPLE_TREBLE_NOTES.map((trebleNotes) => (
         <button
-          key={note}
+          key={trebleNotes.toString()}
           onClick={() =>
             updateInputState((draft) => {
-              draft.bassNote = note
+              draft.trebleNotes = trebleNotes
             })
           }
         >
-          {`Make note ${note}`}
+          {`Make note ${trebleNotes.toString()}`}
         </button>
       ))}
     </div>

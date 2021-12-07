@@ -51,7 +51,7 @@ const useKeysInKeyCenter = () => {
 }
 
 const getVisualOrderedAngles = (angles) => {
-  const sorted = [...angles].sort() // hurray.
+  const sorted = [...angles].sort()
   let biggerThanIncrementGapFound = false
   const noGapsBetweenAngles = sorted.map((angle, index) => {
     const precedent = sorted[index - 1]
@@ -74,8 +74,8 @@ const getStartAndEndAngles = (keysInKeyCenter) => {
     return {}
   }
   const anglesVisuallyOrdered = getVisualOrderedAngles(angles)
-  const startAngle = Math.min(...anglesVisuallyOrdered) - A_FULL_KEY_ANGLE / 2 //0 // getAngleFromIndex(index)
-  const endAngle = Math.max(...anglesVisuallyOrdered) + A_FULL_KEY_ANGLE / 2 // Math.PI / 2
+  const startAngle = Math.min(...anglesVisuallyOrdered) - A_FULL_KEY_ANGLE / 2
+  const endAngle = Math.max(...anglesVisuallyOrdered) + A_FULL_KEY_ANGLE / 2
   return { startAngle, endAngle }
 }
 
