@@ -4,7 +4,7 @@ const MIDI_MSG_TYPES = {
   activeSensing: 254,
 }
 
-const getNoteFromMidiNumber = (midiNote) => {
+const getNoteObjectFromMidiNumber = (noteNum) => {
   const note_names = [
     'C',
     'C#',
@@ -19,17 +19,17 @@ const getNoteFromMidiNumber = (midiNote) => {
     'Bb',
     'B',
   ]
-  const note = note_names[midiNote % 12]
-  const octave = Math.floor(midiNote / 12 - 1)
-  return { note, octave }
+  const noteName = note_names[noteNum % 12]
+  const octave = Math.floor(noteNum / 12 - 1)
+  return { noteName, octave, noteNum: noteNum }
 }
 
 const preProcessMIDIMessage = (msg, handleMIDIMessage) => {
-  const [commandType, note, velocity] = msg.data || []
-  if (note === undefined || commandType === MIDI_MSG_TYPES.activeSensing) {
+  const [commandType, noteNum, velocity] = msg.data || []
+  if (noteNum === undefined || commandType === MIDI_MSG_TYPES.activeSensing) {
     return
   }
-  handleMIDIMessage(getNoteFromMidiNumber(note))
+  handleMIDIMessage(getNoteObjectFromMidiNumber(noteNum))
 }
 
 const connectToMIDI = (handleMIDIMessage) => {

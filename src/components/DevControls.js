@@ -1,11 +1,11 @@
 import { useUpdateInputState } from '../InputStateContext'
 
 const SAMPLE_TREBLE_NOTES = [
-  ['C', 'E', 'F'],
-  ['G', 'B', 'D'],
-  ['A', 'B', 'C'],
-  ['Bb'],
-  ['E', 'B'],
+  [
+    { noteName: 'C', octave: 4, noteNum: 60 },
+    { noteName: 'E', octave: 4, noteNum: 64 },
+    { noteName: 'F', octave: 4, noteNum: 65 },
+  ],
 ]
 const DevControls = () => {
   const updateInputState = useUpdateInputState()
@@ -20,7 +20,9 @@ const DevControls = () => {
             })
           }
         >
-          {`Make note ${trebleNotes.toString()}`}
+          {`Make note ${trebleNotes
+            .map(({ noteName }) => noteName)
+            .toString()}`}
         </button>
       ))}
     </div>

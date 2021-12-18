@@ -29,12 +29,18 @@ export const useUpdateInputState = () => {
 
 const InputStateContextProvider = ({ children }) => {
   const [inputState, updateInputState] = useImmer(DEFAULT_INPUT_STATE)
-  const handleMIDIMessage = ({ note, octave }) => {
-    console.log(note, octave)
-    updateInputState((draft) => {
-      draft.bassNote = note
-    })
+  const handleMIDIMessage = (note) => {
+    console.log(note)
+    // TODO: handle "note off" messages
+    // TODO: determine if its a bass note:
+    const isBassNote = true
+    if (isBassNote) {
+      updateInputState((draft) => {
+        draft.bassNote = note
+      })
+    }
   }
+
   useMIDIInput(handleMIDIMessage)
 
   return (
