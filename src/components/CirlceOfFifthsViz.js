@@ -1,7 +1,8 @@
 import styled from 'styled-components'
 import { arc as d3arc } from 'd3-shape'
 import { useBassNote, useUpdateInputState } from '../InputStateContext'
-import { getCoordsFromIndex, useKeyCenterArcAngles } from '../use-derived-state'
+import { useKeyCenterArcAngles } from '../use-derived-state'
+import { getCoordsFromIndex } from '../getAngleFromIndex'
 import NoteArcs from './NoteArcs'
 
 // Constants
@@ -20,7 +21,7 @@ export const CIRCLE_NOTES_DATA_BY_NOTE = {
   F: { note: 'F', fifthsIndex: 11, chromaticIndex: 5 },
 }
 
-// const COLOR_SCALE = d3.scaleLinear().domain([0, CIRCLE_NOTES_DATA.length]).range(['blue', 'red'])
+export const KEY_NAME_RADIUS = 200
 export const CANVAS_HEIGHT = 500,
   CANVAS_WIDTH = 500
 const COLORS = {
@@ -31,7 +32,7 @@ const COLORS = {
 
 export const CIRCLE_NOTES_DATA = Object.values(CIRCLE_NOTES_DATA_BY_NOTE).map(
   (d) => {
-    const [x, y] = getCoordsFromIndex(d.fifthsIndex)
+    const [x, y] = getCoordsFromIndex(d.fifthsIndex, 200)
     return {
       ...d,
       x,

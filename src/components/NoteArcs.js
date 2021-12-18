@@ -9,11 +9,12 @@ import {
 const MIN_RADIUS = 20
 const MAX_RADIUS = 130
 
+// FOR NOW: set (somewhat) arbitrary input note boundaries
 const a4 = 69
 const a5 = 81
 
 const getNoteStartAndEndAngles = (noteIndex) => {
-  const startAngle = noteIndex * A_FULL_KEY_ANGLE
+  const startAngle = noteIndex * A_FULL_KEY_ANGLE - A_FULL_KEY_ANGLE / 2
   const endAngle = startAngle + A_FULL_KEY_ANGLE - 0.05
   return { startAngle, endAngle }
 }

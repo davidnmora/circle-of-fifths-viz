@@ -1,9 +1,5 @@
-import { pointRadial } from 'd3-shape'
-import {
-  CANVAS_HEIGHT,
-  CANVAS_WIDTH,
-  CIRCLE_NOTES_DATA_BY_NOTE,
-} from './components/CirlceOfFifthsViz'
+import { CIRCLE_NOTES_DATA_BY_NOTE } from './components/CirlceOfFifthsViz'
+import { getAngleFromIndex } from './getAngleFromIndex'
 import { useBassNote, useTrebleNotes } from './InputStateContext'
 
 const SCALE_NOTES_BY_KEY = {
@@ -22,18 +18,6 @@ const SCALE_NOTES_BY_KEY = {
 }
 
 export const A_FULL_KEY_ANGLE = (2 * Math.PI) / 12
-const getAngleFromIndex = (index) => {
-  return A_FULL_KEY_ANGLE * index
-}
-
-export const getCoordsFromIndex = (index, jitter = false) => {
-  const angle = getAngleFromIndex(index)
-  const radius = 200
-  const [x, y] = pointRadial(angle, radius)
-  const _jitter = jitter ? Math.random() * 16 : 0
-  return [x + CANVAS_WIDTH / 2 + _jitter, y + CANVAS_HEIGHT / 2 + _jitter]
-}
-
 const useKeysInKeyCenter = () => {
   // 1. get state info we need
   const bassNote = useBassNote()
