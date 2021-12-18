@@ -67,7 +67,7 @@ const KeyCenterArc = () => {
     <path
       transform={`translate(${CANVAS_WIDTH / 2}, ${CANVAS_HEIGHT / 2})`}
       d={arcD}
-      fillColor="gray"
+      fill="gray"
     ></path>
   )
 }

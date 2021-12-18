@@ -1,4 +1,5 @@
 import { scaleBand } from 'd3-scale'
+import { range } from 'd3-array'
 import { arc as d3arc } from 'd3-shape'
 import { A_FULL_KEY_ANGLE } from '../use-derived-state'
 import {
@@ -15,6 +16,13 @@ const MAX_RADIUS = KEY_CENTER_ARC_INNER_RADIUS
 // FOR NOW: set (somewhat) arbitrary input note boundaries
 const a4 = 69
 const a5 = 81
+const lowestNoteNum = a4
+const highestNoteNum = a5
+
+const noteRadiusBandScale = scaleBand()
+  .domain(range(lowestNoteNum, highestNoteNum))
+  .range([MIN_RADIUS, MAX_RADIUS])
+  .paddingInner(0.05)
 
 const getNoteStartAndEndAngles = (noteIndex) => {
   const startAngle = noteIndex * A_FULL_KEY_ANGLE - A_FULL_KEY_ANGLE / 2
@@ -23,17 +31,15 @@ const getNoteStartAndEndAngles = (noteIndex) => {
 }
 
 const getNoteRadii = (noteNum) => {
-  const innerRadius = 20
-  const outerRadius = 40
+  const innerRadius = noteRadiusBandScale(noteNum)
+  const outerRadius = innerRadius + noteRadiusBandScale.bandwidth()
   return { innerRadius, outerRadius }
 }
 
 const arcGenerator = d3arc()
 
-const NoteArcForAKey = ({ noteIndex, noteNum }) => {
+const SingleNoteArcForAKey = ({ noteIndex, innerRadius, outerRadius }) => {
   const { startAngle, endAngle } = getNoteStartAndEndAngles(noteIndex)
-  const { innerRadius, outerRadius } = getNoteRadii(noteNum)
-
   const arcD = arcGenerator({
     innerRadius,
     outerRadius,
@@ -48,14 +54,27 @@ const NoteArcForAKey = ({ noteIndex, noteNum }) => {
   )
 }
 
-const NoteArcsForASingleNote = () => {
+const NoteArcsForASingleNote = ({ noteNum }) => {
+  const { innerRadius, outerRadius } = getNoteRadii(noteNum)
   return CIRCLE_NOTES_DATA.map((_, noteIndex) => (
-    <NoteArcForAKey key={noteIndex} noteIndex={noteIndex} />
+    <SingleNoteArcForAKey
+      key={noteIndex}
+      innerRadius={innerRadius}
+      outerRadius={outerRadius}
+      noteIndex={noteIndex}
+    />
   ))
 }
 
 const NoteArcs = () => {
-  return <g>{[69].map((noteNum) => NoteArcsForASingleNote(noteNum))}</g>
+  const noteNums = range(lowestNoteNum, highestNoteNum)
+  return (
+    <g>
+      {noteNums.map((noteNum) => (
+        <NoteArcsForASingleNote key={noteNum} noteNum={noteNum} />
+      ))}
+    </g>
+  )
 }
 
 export default NoteArcs
