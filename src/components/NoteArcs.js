@@ -1,15 +1,11 @@
 import { scaleBand } from 'd3-scale'
 import { range } from 'd3-array'
 import { arc as d3arc } from 'd3-shape'
-import { A_FULL_KEY_ANGLE } from '../use-derived-state'
-import {
-  CANVAS_HEIGHT,
-  CANVAS_WIDTH,
-  CIRCLE_NOTES_DATA,
-} from './CirlceOfFifthsViz'
+import { CANVAS_HEIGHT, CANVAS_WIDTH } from './CirlceOfFifthsViz'
 
-// TIME SAVER: I just copy pasta-ed to skip an imports error
-const KEY_CENTER_ARC_INNER_RADIUS = 170
+const KEY_INDEXES = range(0, 12)
+
+const KEY_CENTER_ARC_INNER_RADIUS = 170 // DUPLICATE: I just copy pasta-ed to skip an imports error
 const MIN_RADIUS = 20
 const MAX_RADIUS = KEY_CENTER_ARC_INNER_RADIUS
 
@@ -20,13 +16,20 @@ const lowestNoteNum = a4
 const highestNoteNum = a5
 
 const noteRadiusBandScale = scaleBand()
-  .domain(range(lowestNoteNum, highestNoteNum))
+  .domain(range(lowestNoteNum, highestNoteNum + 1))
   .range([MIN_RADIUS, MAX_RADIUS])
   .paddingInner(0.05)
 
+const noteAngleBandScale = scaleBand()
+  .domain(KEY_INDEXES)
+  .range([0, 2 * Math.PI])
+  .paddingInner(0.05)
+  .paddingOuter(0.05)
+
 const getNoteStartAndEndAngles = (noteIndex) => {
-  const startAngle = noteIndex * A_FULL_KEY_ANGLE - A_FULL_KEY_ANGLE / 2
-  const endAngle = startAngle + A_FULL_KEY_ANGLE - 0.05
+  const bandwidth = noteAngleBandScale.bandwidth()
+  const startAngle = noteAngleBandScale(noteIndex) - bandwidth / 2
+  const endAngle = startAngle + bandwidth
   return { startAngle, endAngle }
 }
 
@@ -46,6 +49,7 @@ const SingleNoteArcForAKey = ({ noteIndex, innerRadius, outerRadius }) => {
     startAngle,
     endAngle,
   })
+
   return (
     <path
       transform={`translate(${CANVAS_WIDTH / 2}, ${CANVAS_HEIGHT / 2})`}
@@ -56,7 +60,7 @@ const SingleNoteArcForAKey = ({ noteIndex, innerRadius, outerRadius }) => {
 
 const NoteArcsForASingleNote = ({ noteNum }) => {
   const { innerRadius, outerRadius } = getNoteRadii(noteNum)
-  return CIRCLE_NOTES_DATA.map((_, noteIndex) => (
+  return KEY_INDEXES.map((_, noteIndex) => (
     <SingleNoteArcForAKey
       key={noteIndex}
       innerRadius={innerRadius}
@@ -67,7 +71,7 @@ const NoteArcsForASingleNote = ({ noteNum }) => {
 }
 
 const NoteArcs = () => {
-  const noteNums = range(lowestNoteNum, highestNoteNum)
+  const noteNums = range(lowestNoteNum, highestNoteNum + 1)
   return (
     <g>
       {noteNums.map((noteNum) => (
