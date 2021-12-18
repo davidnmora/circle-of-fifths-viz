@@ -17,14 +17,22 @@ const getNoteStartAndEndAngles = (noteIndex) => {
   const endAngle = startAngle + A_FULL_KEY_ANGLE - 0.05
   return { startAngle, endAngle }
 }
+
+const getNoteRadii = (noteNum) => {
+  const innerRadius = 20
+  const outerRadius = 40
+  return { innerRadius, outerRadius }
+}
+
 const arcGenerator = d3arc()
 
-const NoteArcForAKey = ({ noteIndex }) => {
+const NoteArcForAKey = ({ noteIndex, noteNum }) => {
   const { startAngle, endAngle } = getNoteStartAndEndAngles(noteIndex)
+  const { innerRadius, outerRadius } = getNoteRadii(noteNum)
 
   const arcD = arcGenerator({
-    innerRadius: 20,
-    outerRadius: 40,
+    innerRadius,
+    outerRadius,
     startAngle,
     endAngle,
   })
