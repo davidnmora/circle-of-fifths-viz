@@ -45,9 +45,10 @@ export const CIRCLE_NOTES_DATA = Object.values(CIRCLE_NOTES_DATA_BY_NOTE).map(
 const SVGContainer = styled.svg`
   background-color: lavenderblush;
 `
-
-// COMPONENTS
-// TODO: make its own file
+const KEY_CENTER_ARC_OUTER_RADIUS = KEY_NAME_RADIUS - 20
+const KEY_CENTER_ARC_WIDTH = 10
+const KEY_CENTER_ARC_INNER_RADIUS =
+  KEY_CENTER_ARC_OUTER_RADIUS - KEY_CENTER_ARC_WIDTH
 const arcGenerator = d3arc()
 const KeyCenterArc = () => {
   const { startAngle, endAngle } = useKeyCenterArcAngles()
@@ -57,8 +58,8 @@ const KeyCenterArc = () => {
     return null
   }
   const arcD = arcGenerator({
-    innerRadius: 170,
-    outerRadius: 180,
+    innerRadius: KEY_CENTER_ARC_INNER_RADIUS,
+    outerRadius: KEY_CENTER_ARC_OUTER_RADIUS,
     startAngle,
     endAngle,
   })
@@ -66,6 +67,7 @@ const KeyCenterArc = () => {
     <path
       transform={`translate(${CANVAS_WIDTH / 2}, ${CANVAS_HEIGHT / 2})`}
       d={arcD}
+      fillColor="gray"
     ></path>
   )
 }

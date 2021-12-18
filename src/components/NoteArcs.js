@@ -6,8 +6,11 @@ import {
   CANVAS_WIDTH,
   CIRCLE_NOTES_DATA,
 } from './CirlceOfFifthsViz'
+
+// TIME SAVER: I just copy pasta-ed to skip an imports error
+const KEY_CENTER_ARC_INNER_RADIUS = 170
 const MIN_RADIUS = 20
-const MAX_RADIUS = 130
+const MAX_RADIUS = KEY_CENTER_ARC_INNER_RADIUS
 
 // FOR NOW: set (somewhat) arbitrary input note boundaries
 const a4 = 69
