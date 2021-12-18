@@ -86,10 +86,11 @@ const CoFLetters = ({ bassNote }) => {
           <CoFNoteText
             onClick={() =>
               updateInputState((draft) => {
-                draft.bassNote = note
+                // TODO: TEMPORARY hacky, data not fully true...
+                draft.bassNote.noteName = note
               })
             }
-            selected={bassNote === note}
+            selected={bassNote.noteName === note}
           >
             {note}
           </CoFNoteText>

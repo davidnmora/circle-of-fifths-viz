@@ -3,8 +3,8 @@ import { useImmer } from 'use-immer'
 import useMIDIInput from './useMIDIInput'
 
 const DEFAULT_INPUT_STATE = {
-  bassNote: 'F',
-  trebleNotes: ['F', 'A', 'C'],
+  bassNote: { noteName: 'F', octave: 3, noteNum: 53 },
+  trebleNotes: [{ noteName: 'F', octave: 4, noteNum: 65 }],
 }
 
 const InputStateContext = createContext({})

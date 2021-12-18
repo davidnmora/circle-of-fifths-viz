@@ -22,7 +22,7 @@ const useKeysInKeyCenter = () => {
   // 1. get state info we need
   const bassNote = useBassNote()
   const trebleNotes = useTrebleNotes()
-  const allInputNotes = [...trebleNotes, bassNote]
+  const allInputNotes = [...trebleNotes, bassNote.noteName]
   // 2. determine overlap between input notes & different keys
   const keysInKeyCenter = Object.keys(SCALE_NOTES_BY_KEY).filter((keyName) => {
     const scaleNotes = SCALE_NOTES_BY_KEY[keyName]
