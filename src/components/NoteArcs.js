@@ -6,12 +6,13 @@ import {
   CANVAS_WIDTH,
   CIRCLE_NOTES_DATA,
 } from './CirlceOfFifthsViz'
-import { useKeysInKeyCenter } from '../use-derived-state'
+import { SCALE_NOTES_BY_KEY, useKeysInKeyCenter } from '../use-derived-state'
 import {
   useBassNote,
   useTrebleExtent,
   useTrebleNotes,
 } from '../InputStateContext'
+import { getNoteObjectFromMidiNumber } from '../useMIDIInput'
 
 const KEY_INDEXES = range(0, 12)
 
@@ -50,16 +51,17 @@ const useNoteOpacity = (noteNum, noteIndex) => {
   const selected = trebleNotes.some(
     (trebleNote) => trebleNote.noteNum === noteNum,
   )
-  const keysInKeyCenter = useKeysInKeyCenter()
-  const isInSelectedKey = keysInKeyCenter.includes(
-    CIRCLE_NOTES_DATA[noteIndex].noteName,
+  const keyNoteName = CIRCLE_NOTES_DATA[noteIndex].noteName
+  const noteIsInThisKey = SCALE_NOTES_BY_KEY[keyNoteName].includes(
+    getNoteObjectFromMidiNumber(noteNum).noteName,
   )
+
   const bassNote = useBassNote()
   if (selected) {
     if (bassNote.noteName === CIRCLE_NOTES_DATA[noteIndex].noteName) {
       return 1
     }
-    return isInSelectedKey ? 0.7 : 0.2
+    return noteIsInThisKey ? 0.4 : 0.1
   }
   return 0.05
 }

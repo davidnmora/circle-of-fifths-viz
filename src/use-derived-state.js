@@ -2,7 +2,7 @@ import { CIRCLE_NOTES_DATA_BY_NOTE } from './components/CirlceOfFifthsViz'
 import { getAngleFromIndex } from './getAngleFromIndex'
 import { useBassNote, useTrebleNotes } from './InputStateContext'
 
-const SCALE_NOTES_BY_KEY = {
+export const SCALE_NOTES_BY_KEY = {
   C: ['C', 'D', 'E', 'F', 'G', 'A', 'B'],
   G: ['C', 'D', 'E', 'F#', 'G', 'A', 'B'],
   D: ['C#', 'D', 'E', 'F#', 'G', 'A', 'B'],
