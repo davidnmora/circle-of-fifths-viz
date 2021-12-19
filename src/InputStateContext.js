@@ -5,6 +5,8 @@ import useMIDIInput from './useMIDIInput'
 const DEFAULT_INPUT_STATE = {
   bassNote: { noteName: 'F', octave: 3, noteNum: 53 },
   trebleNotes: [{ noteName: 'F', octave: 5, noteNum: 77 }],
+  trebleMin: { noteName: 'A', octave: 4, noteNum: 69 },
+  trebleMax: { noteName: 'A', octave: 5, noteNum: 81 },
 }
 
 const InputStateContext = createContext({})
@@ -20,6 +22,13 @@ export const useTrebleNotes = () => {
     inputState: { trebleNotes },
   } = useContext(InputStateContext)
   return trebleNotes
+}
+
+export const useTrebleExtent = () => {
+  const {
+    inputState: { trebleMin, trebleMax },
+  } = useContext(InputStateContext)
+  return { trebleMin, trebleMax }
 }
 
 export const useUpdateInputState = () => {

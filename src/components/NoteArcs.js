@@ -7,24 +7,17 @@ import {
   CIRCLE_NOTES_DATA,
 } from './CirlceOfFifthsViz'
 import { useKeysInKeyCenter } from '../use-derived-state'
-import { useBassNote, useTrebleNotes } from '../InputStateContext'
+import {
+  useBassNote,
+  useTrebleExtent,
+  useTrebleNotes,
+} from '../InputStateContext'
 
 const KEY_INDEXES = range(0, 12)
 
 const KEY_CENTER_ARC_INNER_RADIUS = 170 // DUPLICATE: I just copy pasta-ed to skip an imports error
 const MIN_RADIUS = 20
 const MAX_RADIUS = KEY_CENTER_ARC_INNER_RADIUS
-
-// FOR NOW: set (somewhat) arbitrary input note boundaries
-const a4 = 69
-const a5 = 81
-const lowestNoteNum = a4
-const highestNoteNum = a5
-
-const noteRadiusBandScale = scaleBand()
-  .domain(range(lowestNoteNum, highestNoteNum + 1))
-  .range([MIN_RADIUS, MAX_RADIUS])
-  .paddingInner(0.05)
 
 const noteAngleBandScale = scaleBand()
   .domain(KEY_INDEXES)
@@ -39,7 +32,13 @@ const getNoteStartAndEndAngles = (noteIndex) => {
   return { startAngle, endAngle }
 }
 
-const getNoteRadii = (noteNum) => {
+const useNoteRadii = (noteNum) => {
+  const { trebleMin, trebleMax } = useTrebleExtent()
+  const noteRadiusBandScale = scaleBand()
+    .domain(range(trebleMin.noteNum, trebleMax.noteNum + 1))
+    .range([MIN_RADIUS, MAX_RADIUS])
+    .paddingInner(0.05)
+
   const innerRadius = noteRadiusBandScale(noteNum)
   const outerRadius = innerRadius + noteRadiusBandScale.bandwidth()
   return { innerRadius, outerRadius }
@@ -90,7 +89,7 @@ const SingleNoteArcForAKey = ({
 }
 
 const NoteArcsForASingleNote = ({ noteNum }) => {
-  const { innerRadius, outerRadius } = getNoteRadii(noteNum)
+  const { innerRadius, outerRadius } = useNoteRadii(noteNum)
   return KEY_INDEXES.map((noteIndex) => (
     <SingleNoteArcForAKey
       key={noteIndex}
@@ -103,7 +102,8 @@ const NoteArcsForASingleNote = ({ noteNum }) => {
 }
 
 const NoteArcs = () => {
-  const noteNums = range(lowestNoteNum, highestNoteNum + 1)
+  const { trebleMin, trebleMax } = useTrebleExtent()
+  const noteNums = range(trebleMin.noteNum, trebleMax.noteNum + 1)
   return (
     <g>
       {noteNums.map((noteNum) => (
