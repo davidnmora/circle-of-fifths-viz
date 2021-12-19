@@ -41,12 +41,14 @@ export const useUpdateInputState = () => {
 const InputStateContextProvider = ({ children }) => {
   const [inputState, updateInputState] = useImmer(DEFAULT_INPUT_STATE)
   const handleMIDINoteUpdate = (note, noteIsBeingReleased) => {
-    // TODO: handle "note off" messages
-
     const isBassNote = note.noteNum < inputState.trebleMin.noteNum
     if (isBassNote) {
       updateInputState((draft) => {
-        draft.bassNote = noteIsBeingReleased ? null : note
+        if (noteIsBeingReleased) {
+          if (note.noteNum === draft.bassNote.noteNum) draft.bassNote = null
+        } else {
+          draft.bassNote = note
+        }
       })
     } else {
       updateInputState((draft) => {
