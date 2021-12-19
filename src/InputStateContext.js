@@ -40,11 +40,15 @@ const InputStateContextProvider = ({ children }) => {
   const [inputState, updateInputState] = useImmer(DEFAULT_INPUT_STATE)
   const handleMIDIMessage = (note) => {
     // TODO: handle "note off" messages
-    // TODO: determine if its a bass note:
-    const isBassNote = true
+
+    const isBassNote = note.noteNum < inputState.trebleMin.noteNum
     if (isBassNote) {
       updateInputState((draft) => {
         draft.bassNote = note
+      })
+    } else {
+      updateInputState((draft) => {
+        draft.trebleNotes.push(note)
       })
     }
   }
