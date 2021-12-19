@@ -24,27 +24,27 @@ export const getNoteObjectFromMidiNumber = (noteNum) => {
   return { noteName, octave, noteNum: noteNum }
 }
 
-const preProcessMIDIMessage = (msg, handleMIDIMessage) => {
+const preProcessMIDIMessage = (msg, handleMIDINoteUpdate) => {
   const [commandType, noteNum /*velocity*/] = msg.data || []
   if (noteNum === undefined || commandType === MIDI_MSG_TYPES.activeSensing) {
     return
   }
-  handleMIDIMessage(getNoteObjectFromMidiNumber(noteNum))
+  handleMIDINoteUpdate(getNoteObjectFromMidiNumber(noteNum))
 }
 
-const connectToMIDI = (handleMIDIMessage) => {
+const connectToMIDI = (handleMIDINoteUpdate) => {
   navigator.requestMIDIAccess().then(onMIDISuccess)
 
   function onMIDISuccess(midiAccess) {
     for (var input of midiAccess.inputs.values())
       input.onmidimessage = (msg) =>
-        preProcessMIDIMessage(msg, handleMIDIMessage)
+        preProcessMIDIMessage(msg, handleMIDINoteUpdate)
   }
 }
 
-const useMIDIInput = (onMessageRecieved) => {
+const useMIDIInput = (handleMIDINoteUpdate) => {
   useEffect(() => {
-    connectToMIDI(onMessageRecieved)
+    connectToMIDI(handleMIDINoteUpdate)
   }, [])
 }
 
