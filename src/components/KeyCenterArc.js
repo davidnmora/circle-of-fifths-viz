@@ -24,7 +24,8 @@ export const KeyCenterArc = () => {
     <path
       transform={`translate(${CANVAS_WIDTH / 2}, ${CANVAS_HEIGHT / 2})`}
       d={arcD}
-      fill="gray"
+      fill="skyblue"
+      opacity={0.2}
     ></path>
   )
 }

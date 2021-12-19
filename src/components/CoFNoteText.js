@@ -7,7 +7,8 @@ import {
 import { CIRCLE_NOTES_DATA } from './constants'
 
 const CoFNoteText = styled.text`
-  fill: ${({ selected }) => (selected ? 'blue' : 'red')};
+  opacity: ${({ selected }) => (selected ? 1 : 0.2)};
+  font-size: ${({ selected }) => (selected ? '24px' : '20px')};
   cursor: pointer;
 `
 export const CoFLetters = () => {

@@ -59,7 +59,7 @@ const useNoteOpacity = (noteNum, noteIndex) => {
     }
     return noteIsInThisKey ? 0.4 : 0.1
   }
-  return 0.05
+  return noteIsInThisKey ? 0.05 : 0.01
 }
 
 const SingleNoteArcForAKey = ({
