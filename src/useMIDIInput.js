@@ -4,7 +4,7 @@ const MIDI_MSG_TYPES = {
   activeSensing: 254,
 }
 
-const getNoteObjectFromMidiNumber = (noteNum) => {
+export const getNoteObjectFromMidiNumber = (noteNum) => {
   const note_names = [
     'C',
     'C#',

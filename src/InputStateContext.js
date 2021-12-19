@@ -4,7 +4,7 @@ import useMIDIInput from './useMIDIInput'
 
 const DEFAULT_INPUT_STATE = {
   bassNote: { noteName: 'F', octave: 3, noteNum: 53 },
-  trebleNotes: [{ noteName: 'F', octave: 4, noteNum: 65 }],
+  trebleNotes: [{ noteName: 'F', octave: 5, noteNum: 77 }],
 }
 
 const InputStateContext = createContext({})

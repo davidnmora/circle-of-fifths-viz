@@ -1,7 +1,14 @@
 import { scaleBand } from 'd3-scale'
 import { range } from 'd3-array'
 import { arc as d3arc } from 'd3-shape'
-import { CANVAS_HEIGHT, CANVAS_WIDTH } from './CirlceOfFifthsViz'
+import {
+  CANVAS_HEIGHT,
+  CANVAS_WIDTH,
+  CIRCLE_NOTES_DATA,
+} from './CirlceOfFifthsViz'
+import { useKeysInKeyCenter } from '../use-derived-state'
+import { useBassNote, useTrebleNotes } from '../InputStateContext'
+import { getNoteObjectFromMidiNumber } from '../useMIDIInput'
 
 const KEY_INDEXES = range(0, 12)
 
@@ -40,8 +47,32 @@ const getNoteRadii = (noteNum) => {
 }
 
 const arcGenerator = d3arc()
+const useNoteOpacity = (noteNum, noteIndex) => {
+  const trebleNotes = useTrebleNotes()
+  const selected = trebleNotes.some(
+    (trebleNote) => trebleNote.noteNum === noteNum,
+  )
+  const keysInKeyCenter = useKeysInKeyCenter()
+  const isInSelectedKey = keysInKeyCenter.includes(
+    CIRCLE_NOTES_DATA[noteIndex].note,
+  )
+  const bassNote = useBassNote()
+  if (selected) {
+    if (bassNote.noteName === CIRCLE_NOTES_DATA[noteIndex].note) {
+      return 1
+    }
+    return isInSelectedKey ? 0.7 : 0.2
+  }
+  return 0.05
+}
 
-const SingleNoteArcForAKey = ({ noteIndex, innerRadius, outerRadius }) => {
+const SingleNoteArcForAKey = ({
+  noteIndex,
+  innerRadius,
+  outerRadius,
+  noteNum,
+}) => {
+  const opacity = useNoteOpacity(noteNum, noteIndex)
   const { startAngle, endAngle } = getNoteStartAndEndAngles(noteIndex)
   const arcD = arcGenerator({
     innerRadius,
@@ -54,18 +85,21 @@ const SingleNoteArcForAKey = ({ noteIndex, innerRadius, outerRadius }) => {
     <path
       transform={`translate(${CANVAS_WIDTH / 2}, ${CANVAS_HEIGHT / 2})`}
       d={arcD}
+      opacity={opacity}
+      onClick={() => console.log(noteNum)}
     ></path>
   )
 }
 
 const NoteArcsForASingleNote = ({ noteNum }) => {
   const { innerRadius, outerRadius } = getNoteRadii(noteNum)
-  return KEY_INDEXES.map((_, noteIndex) => (
+  return KEY_INDEXES.map((noteIndex) => (
     <SingleNoteArcForAKey
       key={noteIndex}
       innerRadius={innerRadius}
       outerRadius={outerRadius}
       noteIndex={noteIndex}
+      noteNum={noteNum}
     />
   ))
 }

@@ -18,7 +18,7 @@ const SCALE_NOTES_BY_KEY = {
 }
 
 export const A_FULL_KEY_ANGLE = (2 * Math.PI) / 12
-const useKeysInKeyCenter = () => {
+export const useKeysInKeyCenter = () => {
   // 1. get state info we need
   const bassNote = useBassNote()
   const trebleNotes = useTrebleNotes()
