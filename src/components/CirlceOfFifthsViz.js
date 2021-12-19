@@ -8,7 +8,6 @@ import {
 import { useKeyCenterArcAngles } from '../use-derived-state'
 import { getCoordsFromIndex } from '../getAngleFromIndex'
 import NoteArcs from './NoteArcs'
-import { getNoteObjectFromMidiNumber } from '../useMIDIInput'
 
 // Constants
 export const CIRCLE_NOTES_DATA_BY_NOTE = {

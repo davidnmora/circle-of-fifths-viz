@@ -50,6 +50,7 @@ const connectToMIDI = (handleMIDINoteUpdate) => {
 const useMIDIInput = (handleMIDINoteUpdate) => {
   useEffect(() => {
     connectToMIDI(handleMIDINoteUpdate)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 }
 

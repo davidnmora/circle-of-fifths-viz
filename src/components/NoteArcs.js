@@ -6,7 +6,7 @@ import {
   CANVAS_WIDTH,
   CIRCLE_NOTES_DATA,
 } from './CirlceOfFifthsViz'
-import { SCALE_NOTES_BY_KEY, useKeysInKeyCenter } from '../use-derived-state'
+import { SCALE_NOTES_BY_KEY } from '../use-derived-state'
 import {
   useBassNote,
   useTrebleExtent,

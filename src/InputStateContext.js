@@ -45,7 +45,8 @@ const InputStateContextProvider = ({ children }) => {
     if (isBassNote) {
       updateInputState((draft) => {
         if (noteIsBeingReleased) {
-          if (note.noteNum === draft.bassNote.noteNum) draft.bassNote = null
+          if (note.noteNum === (draft.bassNote || {}).noteNum)
+            draft.bassNote = null
         } else {
           draft.bassNote = note
         }
