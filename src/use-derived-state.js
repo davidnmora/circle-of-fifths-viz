@@ -1,4 +1,4 @@
-import { CIRCLE_NOTES_DATA_BY_NOTE } from './components/CirlceOfFifthsViz'
+import { CIRCLE_NOTES_DATA_BY_NOTE } from './components/constants'
 import { getAngleFromIndex } from './getAngleFromIndex'
 import { useBassNote, useTrebleNotes } from './InputStateContext'
 

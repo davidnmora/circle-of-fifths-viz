@@ -3,7 +3,7 @@ import {
   CANVAS_HEIGHT,
   CANVAS_WIDTH,
   KEY_NAME_RADIUS,
-} from './components/CirlceOfFifthsViz'
+} from './components/constants'
 import { A_FULL_KEY_ANGLE } from './use-derived-state'
 
 export const getAngleFromIndex = (index) => {

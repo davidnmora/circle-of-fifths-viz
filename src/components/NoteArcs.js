@@ -1,11 +1,7 @@
 import { scaleBand } from 'd3-scale'
 import { range } from 'd3-array'
 import { arc as d3arc } from 'd3-shape'
-import {
-  CANVAS_HEIGHT,
-  CANVAS_WIDTH,
-  CIRCLE_NOTES_DATA,
-} from './CirlceOfFifthsViz'
+import { CANVAS_HEIGHT, CANVAS_WIDTH, CIRCLE_NOTES_DATA } from './constants'
 import { SCALE_NOTES_BY_KEY } from '../use-derived-state'
 import {
   useBassNote,
