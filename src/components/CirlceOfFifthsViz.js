@@ -7,18 +7,18 @@ import NoteArcs from './NoteArcs'
 
 // Constants
 export const CIRCLE_NOTES_DATA_BY_NOTE = {
-  C: { note: 'C', fifthsIndex: 0, chromaticIndex: 0 },
-  G: { note: 'G', fifthsIndex: 1, chromaticIndex: 7 },
-  D: { note: 'D', fifthsIndex: 2, chromaticIndex: 2 },
-  A: { note: 'A', fifthsIndex: 3, chromaticIndex: 9 },
-  E: { note: 'E', fifthsIndex: 4, chromaticIndex: 4 },
-  B: { note: 'B', fifthsIndex: 5, chromaticIndex: 11 },
-  'F#': { note: 'F#', fifthsIndex: 6, chromaticIndex: 6 },
-  'C#': { note: 'C#', fifthsIndex: 7, chromaticIndex: 1 },
-  Ab: { note: 'Ab', fifthsIndex: 8, chromaticIndex: 8 },
-  Eb: { note: 'Eb', fifthsIndex: 9, chromaticIndex: 3 },
-  Bb: { note: 'Bb', fifthsIndex: 10, chromaticIndex: 10 },
-  F: { note: 'F', fifthsIndex: 11, chromaticIndex: 5 },
+  C: { noteName: 'C', fifthsIndex: 0, chromaticIndex: 0 },
+  G: { noteName: 'G', fifthsIndex: 1, chromaticIndex: 7 },
+  D: { noteName: 'D', fifthsIndex: 2, chromaticIndex: 2 },
+  A: { noteName: 'A', fifthsIndex: 3, chromaticIndex: 9 },
+  E: { noteName: 'E', fifthsIndex: 4, chromaticIndex: 4 },
+  B: { noteName: 'B', fifthsIndex: 5, chromaticIndex: 11 },
+  'F#': { noteName: 'F#', fifthsIndex: 6, chromaticIndex: 6 },
+  'C#': { noteName: 'C#', fifthsIndex: 7, chromaticIndex: 1 },
+  Ab: { noteName: 'Ab', fifthsIndex: 8, chromaticIndex: 8 },
+  Eb: { noteName: 'Eb', fifthsIndex: 9, chromaticIndex: 3 },
+  Bb: { noteName: 'Bb', fifthsIndex: 10, chromaticIndex: 10 },
+  F: { noteName: 'F', fifthsIndex: 11, chromaticIndex: 5 },
 }
 
 export const KEY_NAME_RADIUS = 200
@@ -81,18 +81,18 @@ const CoFLetters = ({ bassNote }) => {
   const updateInputState = useUpdateInputState()
   return (
     <g>
-      {CIRCLE_NOTES_DATA.map(({ x, y, note }) => (
-        <g key={note} transform={`translate(${x},${y})`}>
+      {CIRCLE_NOTES_DATA.map(({ x, y, noteName }) => (
+        <g key={noteName} transform={`translate(${x},${y})`}>
           <CoFNoteText
             onClick={() =>
               updateInputState((draft) => {
                 // TODO: TEMPORARY hacky, data not fully true...
-                draft.bassNote.noteName = note
+                draft.bassNote.noteName = noteName
               })
             }
-            selected={bassNote.noteName === note}
+            selected={bassNote.noteName === noteName}
           >
-            {note}
+            {noteName}
           </CoFNoteText>
         </g>
       ))}

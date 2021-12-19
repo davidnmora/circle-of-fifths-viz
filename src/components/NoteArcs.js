@@ -8,7 +8,6 @@ import {
 } from './CirlceOfFifthsViz'
 import { useKeysInKeyCenter } from '../use-derived-state'
 import { useBassNote, useTrebleNotes } from '../InputStateContext'
-import { getNoteObjectFromMidiNumber } from '../useMIDIInput'
 
 const KEY_INDEXES = range(0, 12)
 
@@ -54,11 +53,11 @@ const useNoteOpacity = (noteNum, noteIndex) => {
   )
   const keysInKeyCenter = useKeysInKeyCenter()
   const isInSelectedKey = keysInKeyCenter.includes(
-    CIRCLE_NOTES_DATA[noteIndex].note,
+    CIRCLE_NOTES_DATA[noteIndex].noteName,
   )
   const bassNote = useBassNote()
   if (selected) {
-    if (bassNote.noteName === CIRCLE_NOTES_DATA[noteIndex].note) {
+    if (bassNote.noteName === CIRCLE_NOTES_DATA[noteIndex].noteName) {
       return 1
     }
     return isInSelectedKey ? 0.7 : 0.2
@@ -86,7 +85,6 @@ const SingleNoteArcForAKey = ({
       transform={`translate(${CANVAS_WIDTH / 2}, ${CANVAS_HEIGHT / 2})`}
       d={arcD}
       opacity={opacity}
-      onClick={() => console.log(noteNum)}
     ></path>
   )
 }

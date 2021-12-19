@@ -25,7 +25,7 @@ export const getNoteObjectFromMidiNumber = (noteNum) => {
 }
 
 const preProcessMIDIMessage = (msg, handleMIDIMessage) => {
-  const [commandType, noteNum, velocity] = msg.data || []
+  const [commandType, noteNum /*velocity*/] = msg.data || []
   if (noteNum === undefined || commandType === MIDI_MSG_TYPES.activeSensing) {
     return
   }
@@ -43,7 +43,6 @@ const connectToMIDI = (handleMIDIMessage) => {
 }
 
 const useMIDIInput = (onMessageRecieved) => {
-  //   const [midiAccess, setMidiAccess] = useState(null)
   useEffect(() => {
     connectToMIDI(onMessageRecieved)
   }, [])
