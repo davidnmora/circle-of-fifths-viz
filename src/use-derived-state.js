@@ -24,7 +24,7 @@ export const useKeysInKeyCenter = () => {
   const trebleNotes = useTrebleNotes()
   const allInputNotes = [
     ...trebleNotes.map(({ noteName }) => noteName),
-    bassNote.noteName,
+    ...(bassNote.noteName ? [bassNote.noteName] : []),
   ]
   // 2. determine overlap between input notes & different keys
   const keysInKeyCenter = Object.keys(SCALE_NOTES_BY_KEY).filter((keyName) => {

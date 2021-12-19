@@ -1,9 +1,14 @@
 import styled from 'styled-components'
 import { arc as d3arc } from 'd3-shape'
-import { useBassNote, useUpdateInputState } from '../InputStateContext'
+import {
+  useBassNote,
+  useTrebleExtent,
+  useUpdateInputState,
+} from '../InputStateContext'
 import { useKeyCenterArcAngles } from '../use-derived-state'
 import { getCoordsFromIndex } from '../getAngleFromIndex'
 import NoteArcs from './NoteArcs'
+import { getNoteObjectFromMidiNumber } from '../useMIDIInput'
 
 // Constants
 export const CIRCLE_NOTES_DATA_BY_NOTE = {
@@ -77,8 +82,10 @@ const CoFNoteText = styled.text`
   cursor: pointer;
 `
 
-const CoFLetters = ({ bassNote }) => {
+const CoFLetters = () => {
+  const bassNote = useBassNote()
   const updateInputState = useUpdateInputState()
+  const { trebleMin } = useTrebleExtent()
   return (
     <g>
       {CIRCLE_NOTES_DATA.map(({ x, y, noteName }) => (
@@ -87,7 +94,11 @@ const CoFLetters = ({ bassNote }) => {
             onClick={() =>
               updateInputState((draft) => {
                 // TODO: TEMPORARY hacky, data not fully true...
-                draft.bassNote.noteName = noteName
+                draft.bassNote = {
+                  noteNum: 0,
+                  noteName,
+                  octave: trebleMin.octave - 1,
+                }
               })
             }
             selected={bassNote.noteName === noteName}
@@ -100,17 +111,14 @@ const CoFLetters = ({ bassNote }) => {
   )
 }
 
-const CircleOfFifthsViz = () => {
-  const bassNote = useBassNote()
-  return (
-    <div>
-      <SVGContainer height={CANVAS_HEIGHT} width={CANVAS_WIDTH}>
-        <CoFLetters bassNote={bassNote} />
-        <NoteArcs />
-        <KeyCenterArc />
-      </SVGContainer>
-    </div>
-  )
-}
+const CircleOfFifthsViz = () => (
+  <div>
+    <SVGContainer height={CANVAS_HEIGHT} width={CANVAS_WIDTH}>
+      <CoFLetters />
+      <NoteArcs />
+      <KeyCenterArc />
+    </SVGContainer>
+  </div>
+)
 
 export default CircleOfFifthsViz

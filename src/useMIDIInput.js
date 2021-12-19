@@ -25,11 +25,16 @@ export const getNoteObjectFromMidiNumber = (noteNum) => {
 }
 
 const preProcessMIDIMessage = (msg, handleMIDINoteUpdate) => {
-  const [commandType, noteNum /*velocity*/] = msg.data || []
+  const [commandType, noteNum, velocity] = msg.data || []
   if (noteNum === undefined || commandType === MIDI_MSG_TYPES.activeSensing) {
     return
   }
-  handleMIDINoteUpdate(getNoteObjectFromMidiNumber(noteNum))
+
+  const noteIsBeingReleased = velocity === 0
+  handleMIDINoteUpdate(
+    getNoteObjectFromMidiNumber(noteNum),
+    noteIsBeingReleased,
+  )
 }
 
 const connectToMIDI = (handleMIDINoteUpdate) => {
