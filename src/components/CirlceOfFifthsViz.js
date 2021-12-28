@@ -5,7 +5,7 @@ import { KeyCenterArc } from './KeyCenterArc'
 import { CANVAS_HEIGHT, CANVAS_WIDTH } from './constants'
 
 const SVGContainer = styled.svg`
-  background-color: lavenderblush;
+  background-color: ${({ theme }) => theme.neutral.dark};
 `
 const CircleOfFifthsViz = () => (
   <div>

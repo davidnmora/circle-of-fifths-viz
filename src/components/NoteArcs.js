@@ -1,3 +1,4 @@
+import styled from 'styled-components'
 import { scaleBand } from 'd3-scale'
 import { range } from 'd3-array'
 import { arc as d3arc } from 'd3-shape'
@@ -62,6 +63,10 @@ const useNoteOpacity = (noteNum, noteIndex) => {
   return noteIsInThisKey ? 0.05 : 0.01
 }
 
+const SingleNoteArcForAKeyPath = styled.path`
+  fill: ${({ theme }) => theme.highlights.bright};
+`
+
 const SingleNoteArcForAKey = ({
   noteIndex,
   innerRadius,
@@ -78,11 +83,11 @@ const SingleNoteArcForAKey = ({
   })
 
   return (
-    <path
+    <SingleNoteArcForAKeyPath
       transform={`translate(${CANVAS_WIDTH / 2}, ${CANVAS_HEIGHT / 2})`}
       d={arcD}
       opacity={opacity}
-    ></path>
+    />
   )
 }
 
