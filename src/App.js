@@ -1,7 +1,12 @@
+import styled from 'styled-components'
 import CircleOfFifthsViz from './components/CirlceOfFifthsViz'
 import DevControls from './components/DevControls'
 import InputStateContextProvider from './InputStateContext'
 import ThemeContext from './ThemeContext'
+
+const HeaderText = styled.h1`
+  color: ${({ theme }) => theme.neutral.medium};
+`
 
 const App = () => {
   return (
@@ -9,7 +14,7 @@ const App = () => {
       <ThemeContext>
         <div>
           <header>
-            <h1>Circle of Fifths Viz</h1>
+            <HeaderText>Circle of Fifths Viz</HeaderText>
           </header>
           <DevControls />
           <CircleOfFifthsViz />

@@ -1,4 +1,11 @@
-import { ThemeProvider } from 'styled-components'
+import { ThemeProvider, createGlobalStyle } from 'styled-components'
+
+const GlobalStyle = createGlobalStyle`
+  body {
+    background-color: ${({ theme }) => theme.neutral.dark};
+    font-family: 'Karla', sans-serif;
+  }
+`
 
 const DEFAULT_THEME = {
   primary: {
@@ -15,11 +22,16 @@ const DEFAULT_THEME = {
   },
   neutral: {
     dark: '#1D1763',
+    medium: '#8A87AC',
   },
 }
 
 const ThemeContext = ({ children }) => {
-  return <ThemeProvider theme={DEFAULT_THEME}>{children}</ThemeProvider>
+  return (
+    <ThemeProvider theme={DEFAULT_THEME}>
+      <GlobalStyle /> {children}
+    </ThemeProvider>
+  )
 }
 
 export default ThemeContext
