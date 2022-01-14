@@ -10,9 +10,10 @@ const KEY_CENTER_ARC_INNER_RADIUS =
 const arcGenerator = d3arc()
 
 const StyledPath = styled.path`
-  transform: rotate(${({ rotation }) => rotation}rad) translate(250px, 250px);
+  transform: rotate(${({ rotation }) => rotation}rad)
+    translate(${CANVAS_WIDTH / 2}px, ${CANVAS_HEIGHT / 2}px);
   transition: 0.5s transform;
-  transform-origin: 250px 250px;
+  transform-origin: ${CANVAS_WIDTH / 2}px ${CANVAS_HEIGHT / 2}px;
 `
 
 export const KeyCenterArc = () => {
