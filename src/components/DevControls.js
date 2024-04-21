@@ -45,7 +45,6 @@ const SAMPLE_BASS_NOTES = [
   { noteName: 'Eb', octave: 4, noteNum: 63 },
   { noteName: 'E', octave: 4, noteNum: 64 },
 ]
-
 const DevControls = () => {
   const updateInputState = useUpdateInputState()
   const [trebleIndex, setTrebledIndex] = useState(null)
@@ -57,10 +56,17 @@ const DevControls = () => {
         <button
           key={i}
           onClick={() => {
-            setTrebledIndex(i)
-            updateInputState((draft) => {
-              draft.trebleNotes = trebleNotes
-            })
+            if (trebleIndex === i) {
+              setTrebledIndex(null)
+              updateInputState((draft) => {
+                draft.trebleNotes = []
+              })
+            } else {
+              setTrebledIndex(i)
+              updateInputState((draft) => {
+                draft.trebleNotes = trebleNotes
+              })
+            }
           }}
           style={{ opacity: trebleIndex === i ? 1 : 0.7 }}
         >
@@ -75,10 +81,17 @@ const DevControls = () => {
         <button
           key={bassNote.noteName}
           onClick={() => {
-            setBassIndex(i)
-            updateInputState((draft) => {
-              draft.bassNote = bassNote
-            })
+            if (bassIndex === i) {
+              setBassIndex(null)
+              updateInputState((draft) => {
+                draft.bassNote = null
+              })
+            } else {
+              setBassIndex(i)
+              updateInputState((draft) => {
+                draft.bassNote = bassNote
+              })
+            }
           }}
           style={{ opacity: bassIndex === i ? 1 : 0.7 }}
         >
