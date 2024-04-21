@@ -43,7 +43,7 @@ const useNoteRadii = (noteNum) => {
 }
 
 const arcGenerator = d3arc()
-const useNoteOpacity = (noteNum, noteIndex) => {
+const useNoteStyle = (noteNum, noteIndex) => {
   const trebleNotes = useTrebleNotes()
   const selected = trebleNotes.some(
     (trebleNote) => trebleNote.noteNum === noteNum,
@@ -54,17 +54,26 @@ const useNoteOpacity = (noteNum, noteIndex) => {
   )
 
   const bassNote = useBassNote()
+  const noteIssSelectedButNotInKey = selected && !noteIsInThisKey
   if (selected) {
-    if (bassNote.noteName === CIRCLE_NOTES_DATA[noteIndex].noteName) {
-      return 1
+    const bassNoteMatchesKey =
+      bassNote.noteName === CIRCLE_NOTES_DATA[noteIndex].noteName
+    if (bassNoteMatchesKey) {
+      // We're assuming you're building your chord (treble notes) relative to your bass note, so highlight the notes in that key arc
+      return { noteIssSelectedButNotInKey, opacity: 1 }
     }
-    return noteIsInThisKey ? 0.4 : 0.1
+    return { noteIssSelectedButNotInKey, opacity: noteIsInThisKey ? 0.4 : 0.1 }
   }
-  return noteIsInThisKey ? 0.05 : 0.01
+
+  // If not selected, we make the note slightly more visible if its in the key
+  return { noteIssSelectedButNotInKey, opacity: noteIsInThisKey ? 0.05 : 0.01 }
 }
 
 const SingleNoteArcForAKeyPath = styled.path`
-  fill: ${({ theme }) => theme.highlights.bright};
+  fill: ${({ theme, noteIssSelectedButNotInKey }) =>
+    noteIssSelectedButNotInKey
+      ? theme.highlights.hot
+      : theme.highlights.bright};
 `
 
 const SingleNoteArcForAKey = ({
@@ -73,7 +82,10 @@ const SingleNoteArcForAKey = ({
   outerRadius,
   noteNum,
 }) => {
-  const opacity = useNoteOpacity(noteNum, noteIndex)
+  const { noteIssSelectedButNotInKey, opacity } = useNoteStyle(
+    noteNum,
+    noteIndex,
+  )
   const { startAngle, endAngle } = getNoteStartAndEndAngles(noteIndex)
   const arcD = arcGenerator({
     innerRadius,
@@ -87,6 +99,7 @@ const SingleNoteArcForAKey = ({
       transform={`translate(${CANVAS_WIDTH / 2}, ${CANVAS_HEIGHT / 2})`}
       d={arcD}
       opacity={opacity}
+      noteIssSelectedButNotInKey={noteIssSelectedButNotInKey}
     />
   )
 }
