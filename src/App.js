@@ -8,6 +8,10 @@ const HeaderText = styled.h1`
   color: ${({ theme }) => theme.neutral.medium};
 `
 
+export const SubTitle = styled.h3`
+  color: ${({ theme }) => theme.neutral.medium};
+`
+
 const App = () => {
   return (
     <InputStateContextProvider>
