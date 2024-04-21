@@ -4,6 +4,7 @@ const GlobalStyle = createGlobalStyle`
   body {
     background-color: ${({ theme }) => theme.neutral.dark};
     font-family: 'Karla', sans-serif;
+    color: ${({ theme }) => theme.neutral.light};
   }
 `
 
@@ -23,6 +24,7 @@ const DEFAULT_THEME = {
   neutral: {
     dark: '#1D1763',
     medium: '#8A87AC',
+    light: '#F0F0F0',
   },
 }
 
