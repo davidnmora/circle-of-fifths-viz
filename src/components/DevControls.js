@@ -9,6 +9,11 @@ const SAMPLE_TREBLE_NOTES = [
   ],
   [
     { noteName: 'C', octave: 5, noteNum: 72 },
+    { noteName: 'D', octave: 5, noteNum: 74 },
+    { noteName: 'G', octave: 5, noteNum: 79 },
+  ],
+  [
+    { noteName: 'C', octave: 5, noteNum: 72 },
     { noteName: 'E', octave: 5, noteNum: 76 },
     { noteName: 'G', octave: 5, noteNum: 79 },
     { noteName: 'Bb', octave: 5, noteNum: 81 },
