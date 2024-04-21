@@ -33,12 +33,14 @@ const SAMPLE_TREBLE_NOTES = [
 
 const SAMPLE_BASS_NOTES = [
   { noteName: 'F', octave: 3, noteNum: 53 },
+  { noteName: 'F#', octave: 3, noteNum: 54 },
   { noteName: 'G', octave: 3, noteNum: 55 },
+  { noteName: 'Ab', octave: 3, noteNum: 56 },
   { noteName: 'A', octave: 3, noteNum: 57 },
   { noteName: 'Bb', octave: 3, noteNum: 58 },
   { noteName: 'B', octave: 3, noteNum: 59 },
   { noteName: 'C', octave: 4, noteNum: 60 },
-  { noteName: 'Db', octave: 4, noteNum: 61 },
+  { noteName: 'C#', octave: 4, noteNum: 61 },
   { noteName: 'D', octave: 4, noteNum: 62 },
   { noteName: 'Eb', octave: 4, noteNum: 63 },
   { noteName: 'E', octave: 4, noteNum: 64 },
