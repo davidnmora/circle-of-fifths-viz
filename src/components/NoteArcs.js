@@ -10,6 +10,7 @@ import {
   useTrebleNotes,
 } from '../InputStateContext'
 import { getNoteObjectFromMidiNumber } from '../useMIDIInput'
+import { getNoteNameFromNoteNum } from './utils'
 
 const KEY_INDEXES = range(0, 12)
 
@@ -82,6 +83,7 @@ const SingleNoteArcForAKey = ({
   outerRadius,
   noteNum,
 }) => {
+  const noteName = getNoteNameFromNoteNum(noteNum)
   const { noteIssSelectedButNotInKey, opacity } = useNoteStyle(
     noteNum,
     noteIndex,
@@ -100,6 +102,7 @@ const SingleNoteArcForAKey = ({
       d={arcD}
       opacity={opacity}
       noteIssSelectedButNotInKey={noteIssSelectedButNotInKey}
+      title={noteName}
     />
   )
 }

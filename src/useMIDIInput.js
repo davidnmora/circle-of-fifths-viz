@@ -1,25 +1,12 @@
 import { useEffect } from 'react'
+import { getNoteNameFromNoteNum } from './components/utils'
 
 const MIDI_MSG_TYPES = {
   activeSensing: 254,
 }
 
 export const getNoteObjectFromMidiNumber = (noteNum) => {
-  const note_names = [
-    'C',
-    'C#',
-    'D',
-    'Eb',
-    'E',
-    'F',
-    'F#',
-    'G',
-    'Ab',
-    'A',
-    'Bb',
-    'B',
-  ]
-  const noteName = note_names[noteNum % 12]
+  const noteName = getNoteNameFromNoteNum(noteNum)
   const octave = Math.floor(noteNum / 12 - 1)
   return { noteName, octave, noteNum: noteNum }
 }

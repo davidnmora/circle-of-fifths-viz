@@ -1,5 +1,20 @@
 import { getCoordsFromIndex } from '../getAngleFromIndex'
 
+export const NOTE_NAMES = [
+  'C',
+  'C#',
+  'D',
+  'Eb',
+  'E',
+  'F',
+  'F#',
+  'G',
+  'Ab',
+  'A',
+  'Bb',
+  'B',
+]
+
 export const CIRCLE_NOTES_DATA_BY_NOTE = {
   C: { noteName: 'C', fifthsIndex: 0, chromaticIndex: 0 },
   G: { noteName: 'G', fifthsIndex: 1, chromaticIndex: 7 },
